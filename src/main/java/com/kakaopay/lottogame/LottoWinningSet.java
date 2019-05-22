@@ -16,24 +16,6 @@ public class LottoWinningSet {
     private LottoNumber bonusNumber;
 
     public LottoWinningSet() {
-    }
-
-    // 테스트용 코드
-    LottoWinningSet(Set<LottoNumber> numbers,
-                    LottoNumber bonusNumber) {
-        this.numbers = numbers;
-        this.bonusNumber = bonusNumber;
-    }
-
-    LottoWinningSet(String numberString,
-                    int bonusNumber) {
-        this.numbers = new HashSet<>(Arrays.asList(numberString.split(","))).stream()
-                                                                            .map(number -> new LottoNumber(Integer.parseInt(number)))
-                                                                            .collect(Collectors.toSet());
-        this.bonusNumber = new LottoNumber(bonusNumber);
-    }
-
-    public void pick() {
         List<LottoNumber> numbers = RandomNumberGenerator.generateRandomLottoNumbers(WIN_TOTAL_COUNT)
                                                          .stream()
                                                          .map(LottoNumber::new)
@@ -42,6 +24,27 @@ public class LottoWinningSet {
 
         this.numbers = new HashSet<>(numbers.subList(0, 6));
         this.bonusNumber = numbers.get(6);
+
+        validateSet();
+    }
+
+    LottoWinningSet(String numbersString,
+                    int bonusNumber) {
+        this.numbers = new HashSet<>(Arrays.asList(numbersString.split(","))).stream()
+                                                                            .map(number -> new LottoNumber(Integer.parseInt(number)))
+                                                                            .collect(Collectors.toSet());
+        this.bonusNumber = new LottoNumber(bonusNumber);
+
+        validateSet();
+    }
+
+    private void validateSet() {
+        Set<LottoNumber> set = new HashSet<>(numbers);
+        set.add(bonusNumber);
+
+        if(set.size() != WIN_TOTAL_COUNT) {
+            throw new IllegalArgumentException();
+        }
     }
 
     public Set<LottoNumber> getNumbers() {

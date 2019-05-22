@@ -4,14 +4,13 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author david.chung
  * @since 2019-05-22
  */
 public class LottoWinningStatisticsTest {
+    private static final int BUY_AMOUNT = 1000;
     private static final double DELTA = 1e-15;
 
     @Test
@@ -25,19 +24,11 @@ public class LottoWinningStatisticsTest {
                                 new LottoNumber(6));
 
         // 당첨 번호 생성
-        Set<LottoNumber> numbers = new HashSet<>();
-        numbers.add(new LottoNumber(1));
-        numbers.add(new LottoNumber(2));
-        numbers.add(new LottoNumber(3));
-        numbers.add(new LottoNumber(10));
-        numbers.add(new LottoNumber(11));
-        numbers.add(new LottoNumber(12));
-        LottoNumber bonusNumber = new LottoNumber(30);
-        LottoWinningSet winningSet = new LottoWinningSet(numbers, bonusNumber);
+        LottoWinningSet winningSet = new LottoWinningSet("1,2,3,10,11,12", 30);
 
-        LottoWinningStatistics statistics = new LottoWinningStatistics(Collections.singletonList(lotto), winningSet);
+        LottoWinningStatistics statistics = new LottoWinningStatistics(BUY_AMOUNT, Collections.singletonList(lotto), winningSet);
         Assert.assertEquals(LottoRanking.FIFTH, statistics.getRankings().get(0));
-        Assert.assertEquals((double) 1000 / LottoRanking.FIFTH.getAmount(), statistics.getRevenueRate(1000), DELTA);
+        Assert.assertEquals((double) BUY_AMOUNT / LottoRanking.FIFTH.getAmount(), statistics.getRevenueRate(), DELTA);
     }
 
     @Test
@@ -51,19 +42,11 @@ public class LottoWinningStatisticsTest {
                                 new LottoNumber(6));
 
         // 당첨 번호 생성
-        Set<LottoNumber> numbers = new HashSet<>();
-        numbers.add(new LottoNumber(1));
-        numbers.add(new LottoNumber(2));
-        numbers.add(new LottoNumber(3));
-        numbers.add(new LottoNumber(4));
-        numbers.add(new LottoNumber(11));
-        numbers.add(new LottoNumber(12));
-        LottoNumber bonusNumber = new LottoNumber(30);
-        LottoWinningSet winningSet = new LottoWinningSet(numbers, bonusNumber);
+        LottoWinningSet winningSet = new LottoWinningSet("1,2,3,4,11,12", 30);
 
-        LottoWinningStatistics statistics = new LottoWinningStatistics(Collections.singletonList(lotto), winningSet);
+        LottoWinningStatistics statistics = new LottoWinningStatistics(BUY_AMOUNT, Collections.singletonList(lotto), winningSet);
         Assert.assertEquals(LottoRanking.FOURTH, statistics.getRankings().get(0));
-        Assert.assertEquals((double) 1000 / LottoRanking.FOURTH.getAmount(), statistics.getRevenueRate(1000), DELTA);
+        Assert.assertEquals((double) BUY_AMOUNT / LottoRanking.FOURTH.getAmount(), statistics.getRevenueRate(), DELTA);
     }
 
     @Test
@@ -77,19 +60,11 @@ public class LottoWinningStatisticsTest {
                                 new LottoNumber(6));
 
         // 당첨 번호 생성
-        Set<LottoNumber> numbers = new HashSet<>();
-        numbers.add(new LottoNumber(1));
-        numbers.add(new LottoNumber(2));
-        numbers.add(new LottoNumber(3));
-        numbers.add(new LottoNumber(4));
-        numbers.add(new LottoNumber(5));
-        numbers.add(new LottoNumber(12));
-        LottoNumber bonusNumber = new LottoNumber(30);
-        LottoWinningSet winningSet = new LottoWinningSet(numbers, bonusNumber);
+        LottoWinningSet winningSet = new LottoWinningSet("1,2,3,4,5,12", 30);
 
-        LottoWinningStatistics statistics = new LottoWinningStatistics(Collections.singletonList(lotto), winningSet);
+        LottoWinningStatistics statistics = new LottoWinningStatistics(BUY_AMOUNT, Collections.singletonList(lotto), winningSet);
         Assert.assertEquals(LottoRanking.THIRD, statistics.getRankings().get(0));
-        Assert.assertEquals((double) 1000 / LottoRanking.THIRD.getAmount(), statistics.getRevenueRate(1000), DELTA);
+        Assert.assertEquals((double) BUY_AMOUNT / LottoRanking.THIRD.getAmount(), statistics.getRevenueRate(), DELTA);
     }
 
     @Test
@@ -103,19 +78,11 @@ public class LottoWinningStatisticsTest {
                                 new LottoNumber(6));
 
         // 당첨 번호 생성
-        Set<LottoNumber> numbers = new HashSet<>();
-        numbers.add(new LottoNumber(1));
-        numbers.add(new LottoNumber(2));
-        numbers.add(new LottoNumber(3));
-        numbers.add(new LottoNumber(4));
-        numbers.add(new LottoNumber(5));
-        numbers.add(new LottoNumber(12));
-        LottoNumber bonusNumber = new LottoNumber(6);
-        LottoWinningSet winningSet = new LottoWinningSet(numbers, bonusNumber);
+        LottoWinningSet winningSet = new LottoWinningSet("1,2,3,4,5,12", 6);
 
-        LottoWinningStatistics statistics = new LottoWinningStatistics(Collections.singletonList(lotto), winningSet);
+        LottoWinningStatistics statistics = new LottoWinningStatistics(BUY_AMOUNT, Collections.singletonList(lotto), winningSet);
         Assert.assertEquals(LottoRanking.SECOND, statistics.getRankings().get(0));
-        Assert.assertEquals((double) 1000 / LottoRanking.SECOND.getAmount(), statistics.getRevenueRate(1000), DELTA);
+        Assert.assertEquals((double) BUY_AMOUNT / LottoRanking.SECOND.getAmount(), statistics.getRevenueRate(), DELTA);
     }
 
     @Test
@@ -129,19 +96,11 @@ public class LottoWinningStatisticsTest {
                                 new LottoNumber(6));
 
         // 당첨 번호 생성
-        Set<LottoNumber> numbers = new HashSet<>();
-        numbers.add(new LottoNumber(1));
-        numbers.add(new LottoNumber(2));
-        numbers.add(new LottoNumber(3));
-        numbers.add(new LottoNumber(4));
-        numbers.add(new LottoNumber(5));
-        numbers.add(new LottoNumber(6));
-        LottoNumber bonusNumber = new LottoNumber(8);
-        LottoWinningSet winningSet = new LottoWinningSet(numbers, bonusNumber);
+        LottoWinningSet winningSet = new LottoWinningSet("1,2,3,4,5,6", 8);
 
-        LottoWinningStatistics statistics = new LottoWinningStatistics(Collections.singletonList(lotto), winningSet);
+        LottoWinningStatistics statistics = new LottoWinningStatistics(BUY_AMOUNT, Collections.singletonList(lotto), winningSet);
         Assert.assertEquals(LottoRanking.FIRST, statistics.getRankings().get(0));
-        Assert.assertEquals((double) 1000 / LottoRanking.FIRST.getAmount(), statistics.getRevenueRate(1000), DELTA);
+        Assert.assertEquals((double) BUY_AMOUNT / LottoRanking.FIRST.getAmount(), statistics.getRevenueRate(), DELTA);
 
     }
 
@@ -156,18 +115,10 @@ public class LottoWinningStatisticsTest {
                                 new LottoNumber(6));
 
         // 당첨 번호 생성
-        Set<LottoNumber> numbers = new HashSet<>();
-        numbers.add(new LottoNumber(1));
-        numbers.add(new LottoNumber(2));
-        numbers.add(new LottoNumber(34));
-        numbers.add(new LottoNumber(45));
-        numbers.add(new LottoNumber(56));
-        numbers.add(new LottoNumber(12));
-        LottoNumber bonusNumber = new LottoNumber(60);
-        LottoWinningSet winningSet = new LottoWinningSet(numbers, bonusNumber);
+        LottoWinningSet winningSet = new LottoWinningSet("1,2,34,45,56,12", 60);
 
-        LottoWinningStatistics statistics = new LottoWinningStatistics(Collections.singletonList(lotto), winningSet);
+        LottoWinningStatistics statistics = new LottoWinningStatistics(BUY_AMOUNT, Collections.singletonList(lotto), winningSet);
         Assert.assertEquals(LottoRanking.BUST, statistics.getRankings().get(0));
-        Assert.assertEquals(0, statistics.getRevenueRate(1000), DELTA);
+        Assert.assertEquals(0, statistics.getRevenueRate(), DELTA);
     }
 }
